@@ -4,6 +4,8 @@ require('Models/PostManager.php');
 require('Models/CommentManager.php');
 use Blog\Model\PostManager;
 use Blog\Model\CommentManager;
+
+
 function listPosts()
 {
     $postManager = new PostManager();
