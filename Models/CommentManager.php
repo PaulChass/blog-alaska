@@ -34,6 +34,37 @@ class CommentManager
         return $signaledComment;
     }
 
+    public function likeComment($commentId,$userId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('INSERT INTO likedcomment(commentId, userId) VALUES(:commentId, :userId)');
+        $likedComment=$req->execute(array('commentId'=>$commentId,
+        'userId'=>$userId));
+        return $likedComment;
+    }
+
+    public function deleteComment($id)
+    {
+        $db = $this->dbConnect();
+        $req = $db ->prepare('DELETE FROM `comment` WHERE id=?');
+        $deletedComment = $req->execute(array($id));
+        return $deletedComment;
+    }
+
+    public function getId($id)
+    {
+        $db = $this->dbConnect();
+        $comments = $db->prepare('SELECT postId FROM comment  WHERE id=?');
+        $comments->execute(array($id));
+        while ($comment=$comments->fetch()) 
+        {
+            return $comment['postId']; 
+        }
+        $comments->closeCursor();
+        
+        die;
+    }
+
     private function dbConnect()
     {
         $db = new \PDO('mysql:host=localhost;dbname=p3;charset=utf8', 'root', '');

@@ -2,36 +2,33 @@
 $blogTitle =  $title;
 ob_start(); ?>
 <div class="blog-post">
-            <h2 class="blog-post-title"> 
-            
-        </h2>
-            <p class="blog-post-meta"> le 
-            <?= $post['updateDate_fr']?></p>
-            <p class="blog-post-meta"><?= ($post['content']) ?></p>
-           
-           
-           
-            <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
-    <div>
-        <label for="comment">Commentaire</label><br />
-        <textarea id="comment" name="comment"></textarea>
+    <p class="blog-post-meta"> le 
+    <?= $post['updateDate_fr']?></p>
+    <p class="blog-post-meta"><?= ($post['content']) ?></p>
+</div>
+<div class="blog-comment">
+    <h4 class="pb-6 mb-4  font-italic border-top"> Commentaires </h4>
+    <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
+        <div id="commentbar">
+            <textarea id="yourcomment" name="comment" placeholder=" Entrer votre commentaire ..."></textarea>
+            <input class="fas fa-share" type="submit" value="Envoyer"/>
+        </div>
+    </form>
+        <?php while ($comment=$comments->fetch()) 
+        {
+            ?>
+        <div id="comment">
+            <p><strong>Anonyme </strong> ( le <?= htmlspecialchars($comment['publishDate_fr']) ?> ) <?= htmlspecialchars($comment['content']) ?></p>
+            <form  action="index.php?action=signalComment&amp;id=<?= $comment['id'] ?>" method="post">
+            <button class="fas fa-exclamation"></button></form>
+
+            <form  action="index.php?action=likeComment&amp;id=<?= $comment['id'] ?>" method="post">
+            <button class="fas fa-thumbs-up"></button></form>
+
+            <form  action="index.php?action=deleteComment&amp;id=<?= $comment['id'] ?>" method="post">
+            <button> Supprimer</button></form>
     </div>
-    <div>
-        <input type="submit" value="Envoyer"/>
-    </div>
-</form>
-            </form>
-           
-          <!-- /.blog-post  -->
-          <?php while ($comment=$comments->fetch()) 
-          {
-	          ?>
-          <p><?= htmlspecialchars($comment['content']) ?>
-          <form  action="index.php?action=signalComment&amp;id=<?= $comment['id'] ?>" method="post">
-          
-          
-   <button> Signaler</button></p>
-</form>
+
 		  
           
           <?php } $comments->closeCursor();

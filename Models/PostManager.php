@@ -6,7 +6,7 @@ class PostManager
     public function getPosts()
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT id, title, content, DATE_FORMAT(updateDate, \'%d/%m/%Y\') AS updateDate_fr FROM post ORDER BY updateDate'); // Where delete date = none?
+        $req = $db->query('SELECT id, title, content, DATE_FORMAT(updateDate, \'%d/%m/%Y\') AS updateDate_fr FROM post WHERE deleteDate IS NULL ORDER BY updateDate' ); // Where delete date = none?
         return $req;
     }
 
@@ -17,6 +17,14 @@ class PostManager
         $req->execute(array($postId));
         $post = $req->fetch();
         return $post;
+    }
+
+    public function deletePost($id)
+    {
+        $db = $this->dbConnect();
+        $posts = $db->prepare('UPDATE `post` SET deleteDate = now() WHERE id=:id');
+        $deletedLines = $posts -> execute(array('id' => $id ));
+        return $deletedLines;    
     }
 
 
