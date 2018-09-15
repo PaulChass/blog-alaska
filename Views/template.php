@@ -24,13 +24,13 @@
       <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
           <div class="col-4 pt-1">
-            <a class="text-muted" href="index.php?action=SignUp">S'inscrire</a>
+            <a class="text-muted" href="index.php?action=signUp">S'inscrire</a>
           </div>
           <div class="col-4 text-center">
             <a class="blog-header-logo text-dark" href="index.php"> Billet Simple pour l'Alaska </a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
-            <a class="btn btn-sm btn-outline-secondary" href="index.php?action=SignIn">Connexion</a>
+            <a class="btn btn-sm btn-outline-secondary" href="index.php?action=signIn">Connexion</a>
           </div>
         </div>
       </header>

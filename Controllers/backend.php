@@ -3,6 +3,7 @@
  	
 use Blog\Model\CommentManager;
 use Blog\Model\PostManager;
+use Blog\Model\UserManager;
 
 function signalCommment($commentId,$userId)
 {
@@ -75,12 +76,35 @@ function deletePost($id)
 }
 
 
-function signIn()
+function signIn($mail= null, $password= null)
 {
+    if (isset($_POST['inputEmail']) && isset($_POST['inputPassword']))
+    {
+        $userManager = new Usermanager();
+        $signIn = $userManager -> signIn($mail,$password);
+        if($signIn === FALSE){
+            throw new Exception ('La connexion a échoué');
+        }
+        else{echo "Tu es connecté . Bravo";
+        die;}
+    }
+    else{
     require('Views/SignIn.php');
+    }
 }
-function signUp()
+
+function signUp($mail= null, $password= null, $username= null)
 {
+    
+    if (isset($_POST['inputEmail']) && isset($_POST['inputPassword']) && isset($_POST['username']))  {
+
+        $userManager = new Usermanager();
+        $affectedLines = $userManager->addUser($mail, $password, $username);
+        if ($affectedLines === False) {
+            throw new Exception('Impossible de creer le compte !');
+        }
+            header('Location: index.php?action=listPosts');
+    }
     require('Views/SignUp.php');
 }
 

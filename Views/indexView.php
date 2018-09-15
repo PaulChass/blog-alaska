@@ -16,7 +16,12 @@ $count = $count + 1;
         </h2>
             <p class="blog-post-meta"> le 
             <?= $post['updateDate_fr']?></p>
-            <p><?= $post['content'] ?></p>  
+            <p><?= $post['content'] ?></p>
+
+
+
+            
+              
           </div><!-- /.blog-post -->
 <?php }  $posts->closeCursor();
 

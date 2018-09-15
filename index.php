@@ -42,7 +42,7 @@ try {
             if (isset($_GET['id']))
             {
                 signalCommment($_GET['id'],2);
-            }
+                            }
             else { 
                 throw new Exception('Aucun identifiant de commentaire selectionné') ;
             }
@@ -59,11 +59,18 @@ try {
             }
         }
         
-        else if($_GET['action']==  'SignIn'){
+        else if($_GET['action']==  'signIn'){
+            if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])){    
+                signIn($_POST['inputEmail'] , $_POST['inputPassword']);
+            }
             signIn();
         }   
 
-        else if($_GET['action']==  'SignUp'){
+        else if($_GET['action']==  'signUp'){
+            
+            if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword']) && $_POST['inputPassword'] == $_POST['confirmPassword'] && !empty($_POST['username'] ) ) {    
+                signUp($_POST['inputEmail'] , $_POST['inputPassword'], $_POST['username']);
+            }
             signUp();
         } 
         
@@ -109,11 +116,15 @@ try {
                 throw new Exception('Aucun identifiant de billet envoyé') ;
             }
         }
-    }        
-    else {
+
+        else{
+            throw new Exception('Aucune action choisi');}
+    }
+    else{        
     listPosts();
     }
 }
+
 catch(Exception $e) { 
     echo 'Erreur :  ' . $e->getMessage();
 }
