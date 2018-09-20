@@ -1,8 +1,8 @@
 <?php
 
-require('Controllers/frontend.php');
-require('Controllers/backend.php');
-
+require('Controllers/comments.php');
+require('Controllers/posts.php');
+require('Controllers/users.php');
 try {  
     if (isset($_GET['action'])) {
         if ($_GET['action'] == 'listPosts') {

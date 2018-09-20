@@ -47,8 +47,26 @@ class CommentManager
     {
         $db = $this->dbConnect();
         $req = $db ->prepare('DELETE FROM `comment` WHERE id=?');
+        $reqLiked = $db ->prepare('DELETE FROM `likedcomment` WHERE commentId=?');
+        $reqSignaled = $db ->prepare('DELETE FROM `signaledcomment` WHERE commentId=?');
         $deletedComment = $req->execute(array($id));
+        $deletedSignaledComment = $reqSignaled->execute(array($id));
+        $deletedLikedComment = $reqLiked->execute(array($id));
         return $deletedComment;
+       
+    }
+    
+    public function deletePostComments($id)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id FROM comment  WHERE postId=?');
+        $req-> execute(array($id));
+        while ($deleteComment=$req ->fetch())
+        {
+            deleteComment($deleteComment['id']);
+        }
+        $req->closeCursor();
+        return $deleteComment;
     }
 
     public function getId($id)
@@ -63,6 +81,30 @@ class CommentManager
         $comments->closeCursor();
         
         die;
+    }
+
+    public function countComments()
+    {
+        $db = $this -> dbConnect();
+        $req = $db->query('SELECT count(*) FROM `comment` ');
+        $count = $req->fetch();
+        return $count['count(*)'];
+    }
+
+    public function countLikedComments()
+    {
+        $db = $this -> dbConnect();
+        $req = $db->query('SELECT COUNT( DISTINCT `userId`,`commentId`) AS count FROM `likedcomment` ');
+        $count = $req->fetch();
+        return $count['count'];
+    }
+
+    public function countSignaledComments()
+    {
+        $db = $this -> dbConnect();
+        $req = $db->query('SELECT COUNT( DISTINCT `userId`,`commentId`) AS count FROM `signaledcomment` ');
+        $count = $req->fetch();
+        return $count['count'];
     }
 
     private function dbConnect()

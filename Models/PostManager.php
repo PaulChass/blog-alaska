@@ -39,6 +39,13 @@ class PostManager
     return $affectedLines;
     }
     
+    public function countPosts()
+    {
+        $db = $this -> dbConnect();
+        $req = $db->query('SELECT count(*) FROM `post` WHERE deleteDate IS NULL');
+        $count = $req->fetch();
+        return $count['count(*)'];
+    }
 
     private function dbConnect()
     {

@@ -11,7 +11,7 @@ ob_start();?>
     <form action="index.php?action=addComment&amp;id=<?=$post['id']?>" method="post">
         <div id="commentbar">
             <textarea id="yourcomment" name="comment" placeholder=" Entrer votre commentaire ..."></textarea>
-            <input class="fas fa-share" type="submit" value="Envoyer"/>
+            <input class="btn btn-sm btn-outline-secondary " type="submit" value="Envoyer"/>
         </div>
     </form>
         <?php while ($comment = $comments->fetch()) {

@@ -24,7 +24,6 @@ class UserManager
         $req = $db->prepare('SELECT `password`FROM `user` WHERE `emailAddress`=?');
         $req->execute(array($mail));
         $user = $req->fetch();
-        var_dump($user);
         if ($cryptedPassword !== $user['password']){
             $signIn = FALSE;
         }
