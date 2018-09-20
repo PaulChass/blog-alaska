@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require('Controllers/comments.php');
 require('Controllers/posts.php');
@@ -26,7 +27,7 @@ try {
         elseif ($_GET['action'] == 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (!empty($_POST['comment'])) {
-                    addComment($_GET['id'],1, $_POST['comment']);
+                    addComment($_GET['id'],$_POST['comment']);
                 }
                 else {
                     echo 'Erreur : tous les champs ne sont pas remplis !';
@@ -74,6 +75,9 @@ try {
             signUp();
         } 
         
+        else if($_GET['action']=='signOut' ) {
+            signOut();
+        }
   
 
         
@@ -86,6 +90,7 @@ try {
                 addPost();
             }
         }
+        
 
         else if($_GET['action']== 'deleteComment'){
             if (isset($_GET['id']) && $_GET['id'] > 0) { 

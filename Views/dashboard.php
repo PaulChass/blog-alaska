@@ -21,7 +21,7 @@
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Blog Billet Simple pour l'Alaska</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="index.php">Se deconnecter</a>
+          <a class="nav-link" href="index.php?action=signOut"> Se deconnecter</a>
         </li>
       </ul>
     </nav>
@@ -54,9 +54,9 @@
               </ul>
             </div>
           </nav>
-        </div>
+         </div>
       
-        <div class="col-10 col-md-10">       
+        <div class="col-md-10">       
           <img src="Public/alaska.png" class="img-fluid" id="wide-img" alt="Responsive image" > 
           <h2 class="pb-3 mb-4 font-italic border-bottom">Dashboard </h2>
             <div class="row flex-wrap justify-content-around "> 
@@ -81,7 +81,7 @@
             </div>
         
 
-        <h2 class="pb-3 mb-4 font-italic border-bottom">Nouvel Episode</h2>
+          <h2 class="pb-3 mb-4 font-italic border-bottom">Nouvel Episode</h2>
             <form method="post" action="index.php?action=addPost"><p>
                 <label for title> Titre de l'épisode</label>  <input type="textarea" name="title" id="title"></textarea></p>
                 <input type="textarea" name="content" id="content"></textarea> 
@@ -89,11 +89,9 @@
                 <input class="btn below col-2 btn-sm btn-outline-secondary " type="submit" value="Envoyer" />
                 </p>
             </form>
-        </div>
-        
-        
-   
-     </div>
+         </div>
+       </div>
+      </div>
     
      
     

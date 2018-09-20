@@ -6,10 +6,13 @@ require('Models/UserManager.php');
 
 use Blog\Model\PostManager;
 use Blog\Model\CommentManager;
+use Blog\Model\UserManager;
+
 function post($id)
 {
     $postManager = new Postmanager();
     $commentManager = new CommentManager();
+    $userManager = new UserManager();
     $post = $postManager->getPost($id);
     $comments = $commentManager -> getComments($id);
     require('Views/postView.php');

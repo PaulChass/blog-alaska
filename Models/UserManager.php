@@ -8,9 +8,10 @@ class UserManager
     {
         $db = $this->dbConnect();
         $cryptedPassword = crypt($password,'165!.64sfhfhusbs2224-MonPetitGraindeSEL');
+        $cryptedMail = crypt($mail,'165!.64sfhfhusbs2224-MonPetitGraindeSEL');
         $user = $db->prepare('INSERT INTO user(emailAddress, password, username, registrationDate) VALUES(:mail, :password, :username, now())');
         $affectedLines=$user->execute(array(
-        'mail' => $mail,
+        'mail' => $cryptedMail,
         'password' => $cryptedPassword,
         'username' => $username
         ));
@@ -21,8 +22,9 @@ class UserManager
     {
         $db = $this->dbConnect();
         $cryptedPassword =  crypt($password,'165!.64sfhfhusbs2224-MonPetitGraindeSEL');
+        $cryptedMail = crypt($mail,'165!.64sfhfhusbs2224-MonPetitGraindeSEL');
         $req = $db->prepare('SELECT `password`FROM `user` WHERE `emailAddress`=?');
-        $req->execute(array($mail));
+        $req->execute(array($cryptedMail));
         $user = $req->fetch();
         if ($cryptedPassword !== $user['password']){
             $signIn = FALSE;
@@ -32,6 +34,17 @@ class UserManager
         }
         return $signIn;
     }
+
+    public function getUser($mail)
+    {
+        $db = $this->dbConnect();
+        $cryptedMail = crypt($mail,'165!.64sfhfhusbs2224-MonPetitGraindeSEL');
+        $req = $db->prepare('SELECT username, userType,id FROM `user` WHERE `emailAddress`=?');
+        $req->execute(array($cryptedMail));
+        $user = $req->fetch();
+        return $user;
+    }
+
 
     private function dbConnect()
     {

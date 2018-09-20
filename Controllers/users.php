@@ -16,6 +16,7 @@ function signIn($mail= null, $password= null)
         else{
             $postManager = new Postmanager();
             $commentManager = new Commentmanager();
+            $user = $userManager -> getUser($mail);
             $countPosts = $postManager -> countPosts();
             $countComments = $commentManager -> countComments();
             $countLikedComments = $commentManager -> countLikedComments();
@@ -32,9 +33,23 @@ function signIn($mail= null, $password= null)
             {
                 throw new Exception ("Le nombre de commentaire n/'as pas été récupéré");
             }
-            else if ($countPosts === FALSE)
-            {throw new Exception ("Le nombre de post n'as pas été récupéré");}
-            else {require('Views/Dashboard.php');
+            else if ($countPosts === FALSE){
+                throw new Exception ("Le nombre de post n'as pas été récupéré");
+            }
+
+
+            else {
+                $_SESSION['mail'] = $mail;
+                $_SESSION['userType'] = $user['userType'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['userId'] =$user['id'];
+                if ($user['userType']=="admin") {
+                    require('Views/Dashboard.php');}
+                else{ 
+                    header('Location: index.php?action=listPosts');
+                }
+                //FINIR: commencer par faire getUser(mail) si type=admin dashboard sinon index ... sur index remplacer 
+                
             die;}
         }
     }
@@ -42,6 +57,15 @@ function signIn($mail= null, $password= null)
     require('Views/SignIn.php');
     }
 }
+
+
+function signOut()
+{
+    session_start();
+    session_destroy();
+    header('Location: index.php?action=listPosts');
+}
+
 
 function signUp($mail= null, $password= null, $username= null)
 {

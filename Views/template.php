@@ -17,20 +17,32 @@
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
     <link href="Public/css/blog.css" rel="stylesheet">
   </head>
-
   <body>
 
     <div class="container">
       <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
           <div class="col-4 pt-1">
-            <a class="text-muted" href="index.php?action=signUp">S'inscrire</a>
+            <a class="text-muted" href="index.php?action=signUp"><?php if(!isset($_SESSION['userType'])){
+              echo 'S\'inscrire';
+            }
+            else {echo 'Utilisateur :  '.$_SESSION['username'];}
+            ?>
+
           </div>
           <div class="col-4 text-center">
             <a class="blog-header-logo text-dark" href="index.php"> Billet Simple pour l'Alaska </a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
-            <a class="btn btn-sm btn-outline-secondary" href="index.php?action=signIn">Connexion</a>
+            
+            <?php
+            
+             if(isset($_SESSION['userType'])){
+              ?><a class="btn btn-sm btn-outline-secondary" href="index.php?action=signOut"> <?php  echo 'Deconnexion'; 
+            }
+            else if(!isset($_SESSION['userType'])){?>
+            <a class="btn btn-sm btn-outline-secondary" href="index.php?action=signIn">
+            <?php echo 'Connexion';}?></a>
           </div>
         </div>
       </header>

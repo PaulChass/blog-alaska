@@ -1,11 +1,21 @@
 <?php 
 
+
+
 use Blog\Model\CommentManager;
 
-function addComment($postId, $userId, $comment)
+
+function addComment($postId, $comment)
 {
+    
     $commentManager = new Commentmanager();
-    $affectedLines = $commentManager->insertComment($postId, $userId, $comment);
+    
+    if( isset($_SESSION['userId']))
+    {
+        $affectedLines = $commentManager->insertComment($postId,$_SESSION['userId'], $comment);  
+    }
+    else{
+    $affectedLines = $commentManager->insertComment($postId,20, $comment);}
     if ($affectedLines === False) {
         throw new Exception('Impossible d\'ajouter le commentaire !');
     }

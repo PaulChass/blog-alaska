@@ -17,7 +17,17 @@ ob_start();?>
         <?php while ($comment = $comments->fetch()) {
     ?>
         <div id="comment">
-            <p><strong>Anonyme </strong> ( le <?=htmlspecialchars($comment['publishDate_fr'])?> ) <?=htmlspecialchars($comment['content'])?></p>
+            <p><?php if(!isset($comment['username'])){?>
+                <strong>Anonyme </strong>
+                <?php 
+                } 
+                else {
+                ?>
+                <strong> <?php echo(htmlspecialchars($comment['username'])) ;
+                } ?> </strong>
+                
+
+                  ( le <?=htmlspecialchars($comment['publishDate_fr'])?> ) <?=htmlspecialchars($comment['content'])?></p>
             <form  action="index.php?action=signalComment&amp;id=<?=$comment['id']?>" method="post">
             <button class="fas fa-exclamation"></button></form>
 
