@@ -107,8 +107,6 @@ class CommentManager
         return $count['count'];
     }
 
-    
-
     private function dbConnect()
     {
         $db = new \PDO('mysql:host=localhost;dbname=p3;charset=utf8', 'root', '');

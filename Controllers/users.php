@@ -73,10 +73,16 @@ function signUp($mail= null, $password= null, $username= null)
     if (isset($_POST['inputEmail']) && isset($_POST['inputPassword']) && isset($_POST['username']))  {
 
         $userManager = new Usermanager();
-        $affectedLines = $userManager->addUser($mail, $password, $username);
-        if ($affectedLines === False) {
+        
+        $checkEmail = $userManager->checkEmail($mail);
+        if($checkEmail ==  FALSE){
+            throw new Exception('Addresse email déja utilisé!');
+        }
+        else if ($affectedLines === False) {
+            $affectedLines = $userManager->addUser($mail, $password, $username);
             throw new Exception('Impossible de creer le compte !');
         }
+        
             header('Location: index.php?action=listPosts');
     }
     require('Views/SignUp.php');

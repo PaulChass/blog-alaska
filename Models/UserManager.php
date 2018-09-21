@@ -45,6 +45,21 @@ class UserManager
         return $user;
     }
 
+    public function checkEmail($mail)
+    {
+        $db = $this -> dbConnect();
+        $cryptedMail = crypt($mail,'165!.64sfhfhusbs2224-MonPetitGraindeSEL');
+        $req = $db -> prepare('SELECT id FROM user WHERE `emailAddress`=? ');
+        $req->execute(array($cryptedMail));
+        $user = $req -> fetch();
+        if ($user['id']==NULL){
+            $checkEmail = TRUE;
+        }
+        else{
+            $checkEmail=FALSE;
+        }
+        return $checkEmail;
+    }
 
     private function dbConnect()
     {
