@@ -1,8 +1,9 @@
 <?php
+session_start();
 
-require('Controllers/frontend.php');
-require('Controllers/backend.php');
-
+require('Controllers/comments.php');
+require('Controllers/posts.php');
+require('Controllers/users.php');
 try {  
     if (isset($_GET['action'])) {
         if ($_GET['action'] == 'listPosts') {
@@ -26,7 +27,7 @@ try {
         elseif ($_GET['action'] == 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (!empty($_POST['comment'])) {
-                    addComment($_GET['id'],1, $_POST['comment']);
+                    addComment($_GET['id'],$_POST['comment']);
                 }
                 else {
                     echo 'Erreur : tous les champs ne sont pas remplis !';
@@ -42,7 +43,7 @@ try {
             if (isset($_GET['id']))
             {
                 signalCommment($_GET['id'],2);
-            }
+                            }
             else { 
                 throw new Exception('Aucun identifiant de commentaire selectionné') ;
             }
@@ -59,14 +60,24 @@ try {
             }
         }
         
-        else if($_GET['action']==  'SignIn'){
+        else if($_GET['action']==  'signIn'){
+            if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])){    
+                signIn($_POST['inputEmail'] , $_POST['inputPassword']);
+            }
             signIn();
         }   
 
-        else if($_GET['action']==  'SignUp'){
+        else if($_GET['action']==  'signUp'){
+            
+            if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword']) && $_POST['inputPassword'] == $_POST['confirmPassword'] && !empty($_POST['username'] ) ) {    
+                signUp($_POST['inputEmail'] , $_POST['inputPassword'], $_POST['username']);
+            }
             signUp();
         } 
         
+        else if($_GET['action']=='signOut' ) {
+            signOut();
+        }
   
 
         
@@ -79,6 +90,7 @@ try {
                 addPost();
             }
         }
+        
 
         else if($_GET['action']== 'deleteComment'){
             if (isset($_GET['id']) && $_GET['id'] > 0) { 
@@ -109,11 +121,15 @@ try {
                 throw new Exception('Aucun identifiant de billet envoyé') ;
             }
         }
-    }        
-    else {
+
+        else{
+            throw new Exception('Aucune action choisi');}
+    }
+    else{        
     listPosts();
     }
 }
+
 catch(Exception $e) { 
     echo 'Erreur :  ' . $e->getMessage();
 }

@@ -8,12 +8,12 @@
   </head>
 
   <body class="text-center">
-    <form class="form-signin">
+    <form method="post" class="form-signin" action="index.php?action=signIn">
       <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
       <label for="inputEmail" class="sr-only">addresse email</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <input type="email"name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
       <label for="inputPassword" class="sr-only">Mot de Passe</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Se souvenir de moi

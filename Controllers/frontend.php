@@ -2,6 +2,7 @@
 
 require('Models/PostManager.php');
 require('Models/CommentManager.php');
+require('Models/UserManager.php');
 use Blog\Model\PostManager;
 use Blog\Model\CommentManager;
 

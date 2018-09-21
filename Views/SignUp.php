@@ -8,17 +8,17 @@
   </head>
 
 <body class="text-center">
-    <form class="form-signin">
+    <form method="post" class="form-signin" action="index.php?action=signUp">
       <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Créer un compte</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="addresse mail" required autofocus>
+      <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="addresse mail" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Mot de Passe" required>
+      <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Mot de Passe" required>
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="confirmPassword" class="form-control" placeholder="Confirmer le mot de passe" required>
+      <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirmer le mot de passe" required>
       <label for="name" class="sr-only"> Nom d'utilisateur </label>
-      <input type="name" id="username" class="form-control" placeholder="Nom d'utilisateur" required>
+      <input type="name" id="username" name="username" class="form-control" placeholder="Nom d'utilisateur" required>
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Se souvenir de moi

@@ -11,7 +11,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
-
+   
+    <link href="Public/css/blog.css" rel="stylesheet">
+   
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
      <link href="Public/blog.css" rel="stylesheet">
@@ -29,7 +31,7 @@
             <a class="blog-header-logo text-dark" href="index.php"> Billet Simple pour l'Alaska </a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
-            <a class="btn btn-sm btn-outline-secondary" href="index.php?action=SignIn">Connexion</a>
+            <p>Administrateur</p>
           </div>
         </div>
       </header>
@@ -57,10 +59,10 @@
 
     <footer class="blog-footer">
       
-      <p>
-    <a class="p-4" href="#">S'inscrire</a>
-        <a href="index.php" class="p-4">  Page d'accueil</a>
-      </p>
+    <div class="row flex-nowrap justify-content-around align-items-center">
+    <a class="p-4 justify-content-" href="#">Dashboard</a>
+    <a href="index.php" class="p-4 justify-content-between">  Page d'accueil</a>
+    </div> 
     </footer>
 
     <!-- Bootstrap core JavaScript
@@ -76,6 +78,13 @@
         bg: '#55595c',
         fg: '#eceeef',
         text: 'Thumbnail'
+      });
+    </script>
+     <!-- Script TinyMCE -->
+     <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+    <script>
+      tinymce.init({
+      selector: '#content'
       });
     </script>
   </body>
