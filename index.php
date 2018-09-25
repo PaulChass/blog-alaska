@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require('Controllers/comments.php');
 require('Controllers/posts.php');
@@ -25,23 +26,22 @@ try {
 
         elseif ($_GET['action'] == 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
-                if (!empty($_POST['comment'])) {
-                    addComment($_GET['id'],1, $_POST['comment']);
+                if (isset($_POST['comment'])) {
+                    addComment($_GET['id'],$_POST['comment']);
                 }
+                
                 else {
-                    echo 'Erreur : tous les champs ne sont pas remplis !';
+                    post($_GET['id']);
                 }
+                post($_GET['id']);
             }
-                else {
-                    echo 'Erreur : aucun identifiant de billet envoyé';
-                }
         }
         
 
         else if($_GET['action']=='signalComment' ){
             if (isset($_GET['id']))
             {
-                signalCommment($_GET['id'],2);
+                signalCommment($_GET['id'],$_SESSION['userId']);
                             }
             else { 
                 throw new Exception('Aucun identifiant de commentaire selectionné') ;
@@ -52,7 +52,7 @@ try {
         else if($_GET['action']=='likeComment' ){
             if (isset($_GET['id']))
             {
-                likeCommment($_GET['id'],2);
+                likeCommment($_GET['id'],$_SESSION['userId']);
             }
             else { 
                 throw new Exception('Aucun identifiant de commentaire selectionné') ;
@@ -74,6 +74,9 @@ try {
             signUp();
         } 
         
+        else if($_GET['action']=='signOut' ) {
+            signOut();
+        }
   
 
         
@@ -86,6 +89,7 @@ try {
                 addPost();
             }
         }
+        
 
         else if($_GET['action']== 'deleteComment'){
             if (isset($_GET['id']) && $_GET['id'] > 0) { 
@@ -114,6 +118,13 @@ try {
             }
             else {
                 throw new Exception('Aucun identifiant de billet envoyé') ;
+            }
+        }
+
+        else if($_GET['action']=='dashboard') {
+            if($_SESSION['userType']=='admin')
+            {
+                dashboard();
             }
         }
 

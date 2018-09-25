@@ -7,7 +7,8 @@ class CommentManager
 	public function getComments($postId)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('SELECT id,userId, content, DATE_FORMAT(publishDate, \'%d/%m/%Y\') AS publishDate_fr FROM comment WHERE postId=:postId');
+        $comments = $db->prepare('SELECT comment.id,userId,postId, username, content, DATE_FORMAT(publishDate, \'%d/%m/%Y\') AS publishDate_fr FROM `comment` 
+        INNER JOIN user on comment.userID=user.id WHERE :postId' );
         $comments->execute(array('postId'=>$postId));
         return $comments;
     }
@@ -15,12 +16,11 @@ class CommentManager
     public function insertComment($postId,$userId, $content)
     {
     	$db = $this->dbConnect();
-    	$comments = $db->prepare('INSERT INTO comment(postId, userId, content, publishDate) VALUES(:postId, :userId, :content, now())');
-    	$affectedLines=$comments->execute(array(
-	'postId' => $postId,
-	'userId' => $userId,
-	'content' => $content
-	));
+        $comments = $db->prepare('INSERT INTO comment(postId, userId, content, publishDate) VALUES(:postId, :userId, :content, now())');
+    $affectedLines=$comments->execute(array(
+            'postId' => $postId,
+            'userId' => $userId,
+            'content' => $content));
 	return $affectedLines;
     }
 	
@@ -106,6 +106,8 @@ class CommentManager
         $count = $req->fetch();
         return $count['count'];
     }
+
+    
 
     private function dbConnect()
     {
