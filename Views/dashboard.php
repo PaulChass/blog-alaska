@@ -72,10 +72,12 @@
               </ul>
             </div>
           </nav>
-        </div>
+         </div>
       
+
         <div class="col-md-9">       
           <img src="Public/alaska.png" class="img-fluid" alt="Responsive image" > 
+
           <h2 class="pb-3 mb-4 font-italic border-bottom">Dashboard </h2>
             <div class="row flex-wrap justify-content-around "> 
                 <div class="data row p-3">
@@ -123,10 +125,12 @@
          
 
        </div>
+
     </div>
       
 
      
+
     
      
     

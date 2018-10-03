@@ -97,6 +97,7 @@ function signOut()
 }
 
 
+
 function signUp($mail= null, $password= null, $username= null)
 {
     

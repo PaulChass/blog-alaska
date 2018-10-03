@@ -91,11 +91,13 @@ class UserManager
         return $checkEmail;
     }
 
+
 /**
  * Connecte à la base de donnnées
  * 
  * @return <PDO> autorisation de connexion a la base de donné 
  */
+
     private function dbConnect()
     {
         $db = new \PDO('mysql:host=localhost;dbname=p3;charset=utf8', 'root', '');
