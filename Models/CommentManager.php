@@ -7,7 +7,9 @@ class CommentManager
 	public function getComments($postId)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('SELECT comment.id,userId, username, content, DATE_FORMAT(publishDate, \'%d/%m/%Y\') AS publishDate_fr FROM `comment` 
+
+        $comments = $db->prepare('SELECT comment.id,userId,postId, username, content, DATE_FORMAT(publishDate, \'%d/%m/%Y\') AS publishDate_fr FROM `comment` 
+
         INNER JOIN user on comment.userID=user.id WHERE :postId' );
         $comments->execute(array('postId'=>$postId));
         return $comments;
@@ -106,6 +108,8 @@ class CommentManager
         $count = $req->fetch();
         return $count['count'];
     }
+
+    
 
     private function dbConnect()
     {

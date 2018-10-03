@@ -31,7 +31,7 @@
             <a class="blog-header-logo text-dark" href="index.php"> Billet Simple pour l'Alaska </a>
           </div>
           <div class="col-4 d-flex justify-content-end align-items-center">
-            <p>Administrateur</p>
+          <a class="btn btn-sm btn-outline-secondary" href="index.php?action=signOut">Deconnexion</a>
           </div>
         </div>
       </header>

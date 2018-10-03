@@ -15,13 +15,18 @@ function post($id)
     $userManager = new UserManager();
     $post = $postManager->getPost($id);
     $comments = $commentManager -> getComments($id);
+    $posts = $postManager->getPosts();
+    $postsNumber = $postManager->countPosts();
     require('Views/postView.php');
 }
 
 function listPosts()
 {
     $postManager = new PostManager();
+    $postManager2 = new Postmanager();
+    $lposts = $postManager->getPosts();
     $posts = $postManager->getPosts();
+    $postsNumber = $postManager->countPosts();
     require('Views/indexView.php');
 }
 

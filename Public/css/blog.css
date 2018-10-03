@@ -133,8 +133,11 @@ h1, h2, h3, h4, h5, h6 {
   color: black;
 }
 .blog-comment{
-  color: black;
-  background-color: beige;
+  color: white;
+  background-color:rgba(110, 135, 155,1);
+  padding:10px;
+  border-radius: 10px;
+  
 }
 #commentbar
 {
@@ -154,11 +157,15 @@ display: inline-flex;
 }
 #comment button{height:75%;
 border:none;
-background-color: beige;
+background-color:rgba(110, 135, 155,1);
 }
-#comment button:hover{border:1px solid slategray;
+#comment button:hover{border:2px solid rgb(255, 255, 255);
 border-radius:5px;}
 
 .big{
   background-color: green;
 height:200%;}
+.list{color:white; background-color:rgba(110, 135, 155,1);}
+.list a{color:greenyellow;}
+body{background-color: rgba(210, 235, 255, 0.973);}
+.bb{background-color:  rgba(110, 135, 155,1);color:white;  }

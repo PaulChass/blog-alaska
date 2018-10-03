@@ -71,27 +71,27 @@
         </div><!-- /.blog-main -->
 
         <aside class="col-md-4 blog-sidebar">
-          <div class="p-3 mb-3 bg-light rounded">
+          <div class="p-4 mb-4 bb rounded">
             <h4 class="font-italic">A propos de</h4>
             <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
           </div>
 
-          <div class="p-3">
+          <div class="p-4 mb-3 list ">
             <h4 class="font-italic">Liste des episodes</h4>
             <ol class="list-unstyled mb-0">
               <li><a href="index.php?action=listPosts">Tous!</a></li>
-              <li><a href="index.php?action=addPost">Nouvel Episode</a></li>
+             <?php $i=1;while($post= $posts->fetch())
+             {
+                ?>
+                <li><a href="index.php?action=post&id=<?= $post['id'];?>">Episode <?php echo $i;$i++;?></a>   <?= htmlspecialchars($post['title'])?> </li>
+             <?php }$posts->closeCursor();?>
+             <?php if(isset($_SESSION['userType'])  &&  $_SESSION['userType']=='admin')
+                {?>
+                <li><a href="index.php?action=addPost">Nouvel Episode</a></li><?php } ?>
             </ol>
           </div>
 
-          <div class="p-3">
-            <h4 class="font-italic">RS</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
-                              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Facebook</a></li>
-            </ol>
-          </div>
+          
         </aside><!-- /.blog-sidebar -->
 
       </div><!-- /.row -->
@@ -101,6 +101,10 @@
     <footer class="blog-footer">
       
       <p>
+      <?php if(isset($_SESSION['userType'])  &&  $_SESSION['userType']=='admin')
+                {?>
+        <a href="index.php?action=dashboard" class="p-4"> Dashboard </a><?php
+        } ?>
         <a href="#" class="p-4"> Revenir au haut de page</a>
         <a href="index.php" class="p-4">  Page d'accueil</a>
       </p>

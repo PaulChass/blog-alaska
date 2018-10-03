@@ -11,7 +11,9 @@ function signIn($mail= null, $password= null)
         $userManager = new Usermanager();
         $signIn = $userManager -> signIn($mail,$password);
         if($signIn === FALSE){
-            throw new Exception ('Utilisateur ou mot de passe incorrect');
+            $e ='Utilisateur ou mot de passe incorrect';
+            require('Views/SignIn.php');
+            die;
         }
         else{
             $postManager = new Postmanager();
@@ -47,17 +49,40 @@ function signIn($mail= null, $password= null)
                     require('Views/Dashboard.php');}
                 else{ 
                     header('Location: index.php?action=listPosts');
-                }
-                //FINIR: commencer par faire getUser(mail) si type=admin dashboard sinon index ... sur index remplacer 
-                
+                }    
             die;}
         }
     }
     else{
     require('Views/SignIn.php');
+    die;
     }
 }
-
+function dashboard(){
+    $postManager = new Postmanager();
+    $commentManager = new Commentmanager();
+    $countPosts = $postManager -> countPosts();
+    $countComments = $commentManager -> countComments();
+    $countLikedComments = $commentManager -> countLikedComments();
+    $countSignaledComments = $commentManager -> countSignaledComments();
+    if($countComments === FALSE )
+    {
+        throw new Exception ("Le nombre de commentaire n/'as pas été récupéré");
+    }
+    else if ($countLikedComments === FALSE)
+    {
+        throw new Exception ("Le nombre de commentaire liké n/'as pas été récupéré");
+    }
+    else if ($countSignaledComments === FALSE)
+    {
+        throw new Exception ("Le nombre de commentaire n/'as pas été récupéré");
+    }
+    else if ($countPosts === FALSE){
+        throw new Exception ("Le nombre de post n'as pas été récupéré");
+    }
+    else {
+            require('Views/Dashboard.php');}
+    }
 
 function signOut()
 {
@@ -67,27 +92,32 @@ function signOut()
 }
 
 
+
 function signUp($mail= null, $password= null, $username= null)
 {
     
     if (isset($_POST['inputEmail']) && isset($_POST['inputPassword']) && isset($_POST['username']))  {
-
         $userManager = new Usermanager();
         
         $checkEmail = $userManager->checkEmail($mail);
-        if($checkEmail ==  FALSE){
-            throw new Exception('Addresse email déja utilisé!');
+        if($checkEmail ===  FALSE){
+            $e='Addresse email déja utilisé!';
+            require('Views/SignUp.php');
+            die;
         }
-        else if ($affectedLines === False) {
+        else {
             $affectedLines = $userManager->addUser($mail, $password, $username);
-            throw new Exception('Impossible de creer le compte !');
-        }
-        
+            if($affectedLines === FALSE){
+            $e='Les mots de passe ne correspondent pas. Veuillez réessayer';
+            require('Views/SignUp.php');
+            die;
+            }
+        }    
+
             header('Location: index.php?action=listPosts');
     }
     require('Views/SignUp.php');
 }
-
 
 
 

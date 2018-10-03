@@ -9,20 +9,21 @@ function addComment($postId, $comment)
 {
     
     $commentManager = new Commentmanager();
-    
-    if( isset($_SESSION['userId']))
-    {
-        $affectedLines = $commentManager->insertComment($postId,$_SESSION['userId'], $comment);  
-    }
-    else{
-    $affectedLines = $commentManager->insertComment($postId,20, $comment);}
-    if ($affectedLines === False) {
-        throw new Exception('Impossible d\'ajouter le commentaire !');
-    }
-    else {
-        echo "Commentaire ajouté";
-        header('Location: index.php?action=post&id=' . $postId);
-    }
+
+    if (!empty($_POST['comment'])){ 
+        if( isset($_SESSION['userId']))
+        {
+            $affectedLines = $commentManager->insertComment($postId,$_SESSION['userId'], $comment);  
+        }
+        else{
+        $affectedLines = $commentManager->insertComment($postId,20, $comment);}
+        if ($affectedLines === False) {
+            throw new Exception('Impossible d\'ajouter le commentaire !');
+        }
+        else {
+            header('Location: index.php?action=post&id=' . $postId);
+        }
+
 }
 
 function signalCommment($commentId,$userId)

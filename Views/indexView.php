@@ -6,9 +6,8 @@
 
 <?php 
 $count = 0;
-while ($post= $posts->fetch())
+while ($post= $lposts->fetch())
 {
-$count = $count + 1;
 ?>
           <div class="blog-post">
             <h2 class="blog-post-title"> <a href="index.php?action=post&amp;id=<?= $post['id'] ?>" >
@@ -23,7 +22,7 @@ $count = $count + 1;
             
               
           </div><!-- /.blog-post -->
-<?php }  $posts->closeCursor();
+<?php }  $lposts->closeCursor();
 
 ?> 
      <?php $blogMain = ob_get_clean(); ?>
