@@ -23,9 +23,6 @@ ob_start();?>
         </div>
     </form>
         <?php while ($comment = $comments->fetch()) {
-
-
-
     if( $comment['postId']==$post['id']){?>
         <div id="comment">
             <p><?php if($comment['username']=='161EXyUcyE.vo'){?>

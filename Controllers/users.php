@@ -92,6 +92,7 @@ function signOut()
 }
 
 
+
 function signUp($mail= null, $password= null, $username= null)
 {
     
@@ -112,6 +113,7 @@ function signUp($mail= null, $password= null, $username= null)
             die;
             }
         }    
+
             header('Location: index.php?action=listPosts');
     }
     require('Views/SignUp.php');

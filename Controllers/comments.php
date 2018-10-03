@@ -9,6 +9,7 @@ function addComment($postId, $comment)
 {
     
     $commentManager = new Commentmanager();
+
     if (!empty($_POST['comment'])){ 
         if( isset($_SESSION['userId']))
         {
@@ -22,7 +23,7 @@ function addComment($postId, $comment)
         else {
             header('Location: index.php?action=post&id=' . $postId);
         }
-    }
+
 }
 
 function signalCommment($commentId,$userId)
