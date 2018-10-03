@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -40,16 +41,16 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link" href="index.php?action=listSignaledComments">
                     <span data-feather="file"></span>
                     Commentaires Signalés
                   </a>
                 </li>
                 
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link" href="index.php?action=listlikedComments">
                     <span data-feather="file"></span>
-                    Liste des Posts
+                    Commentaires Likés
                   </a>
                 </li>
                 <li class="nav-item">
@@ -58,6 +59,16 @@
                     Page d'accueil du site <span class="sr-only">(current)</span>
                   </a>
                 </li>
+                <?php $i=1;
+                while($post= $posts->fetch())
+              {
+                ?>
+                <li class="nav-item">
+                <a class="nav-link" href="index.php?action=post&id=<?= $post['id'];?>">
+                <span data-feather="file"></span> Episode <?php echo $i;$i++;?> </a>
+                
+           <?php } $posts->closeCursor();?>
+
               </ul>
             </div>
           </nav>
@@ -88,8 +99,11 @@
                     <p class="dataValue"> <?=$countSignaledComments;?></p>
                 </div>
             </div>
-        
 
+           
+                
+        
+          <div class="pb-6">
           <h2 class="pb-3 mb-4 font-italic border-bottom">Nouvel Episode</h2>
             <form method="post" action="index.php?action=addPost"><p>
                 <label for title> Titre de l'épisode</label>  <input type="textarea" name="title" id="title"></textarea></p>
@@ -98,9 +112,24 @@
                 <input class="btn below col-2 btn-sm btn-outline-secondary " type="submit" value="Envoyer" />
                 </p>
             </form>
+          </div>
+        
+      <footer class="blog-footer center p-4">
+      <p>
+        <a href="#" class="p-4"> Revenir au haut de page</a>
+        <a href="index.php" class="p-4">  Page d'accueil</a>
+      </p>
+    </footer>
+ 
          </div>
+         
+
        </div>
-      </div>
+
+    </div>
+      
+
+     
 
     
      
@@ -130,3 +159,4 @@
     </script>
   </body>
 </html>
+  

@@ -21,7 +21,7 @@ function addComment($postId, $comment)
             throw new Exception('Impossible d\'ajouter le commentaire !');
         }
         else {
-            header('Location: index.php?action=post&id=' . $postId);
+      header('Location: index.php?action=post&id='.$postId);
         }
 
 }
@@ -31,11 +31,12 @@ function signalCommment($commentId,$userId)
     $commentManager = new Commentmanager();
     $signaledComment = $commentManager -> signalComment($commentId,$userId);
        if ($signaledComment === False) {
-        throw new Exception('Impossible de signaler le commentaire !');
-    }
-    else {
+       $e='Impossible de signaler le commentaire !';
+    } else {
       $postId= $commentManager -> getId($commentId);
-      header('Location: index.php?action=post&id='.$postId);
+      $e='Le commentaire à été signalé et est en attente de modération.';
+            $action='post&id='.$postId;
+            showError($e,$action);
     }	
 }
 
@@ -52,6 +53,19 @@ function likeCommment($commentId,$userId)
     }	
 }
 
+function listSignaledComments()
+{
+    $commentManager = new Commentmanager();
+    $signaledComments = $commentManager -> listSignaledComments();
+    require('Views/signaledComments.php');
+}
+
+function listlikedComments()
+{
+    $commentManager = new Commentmanager();
+    $likedComments = $commentManager -> listlikedComments();
+    require('Views/likedComments.php');
+}
 function deleteComment($id)
 {
     $commentManager = new Commentmanager();
@@ -64,4 +78,5 @@ function deleteComment($id)
     header('Location: index.php?action=post&id='.$postId);
     }
 }
+
 

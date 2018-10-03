@@ -24,4 +24,4 @@
 <?php $blogMain = ob_get_clean(); ?>
 
 
-<?php require('adminView.php'); ?>      
+<?php require('adminView.php');?>      

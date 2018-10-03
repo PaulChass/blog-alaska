@@ -14,7 +14,7 @@ while ($post= $lposts->fetch())
             <?= htmlspecialchars($post['title']);?></a>
         </h2>
             <p class="blog-post-meta"> le 
-            <?= $post['updateDate_fr']?></p>
+            <?= $post['createDate_fr']?></p>
             <p><?= $post['content'] ?></p>
 
 
