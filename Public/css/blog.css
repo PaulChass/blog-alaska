@@ -144,6 +144,7 @@ h1, h2, h3, h4, h5, h6 {
 width:100%;  
 display: inline-flex;
 }
+#commentbar .btn {background-color: lightblue;}
 #yourcomment{width:100%;}
 #comment{
   width:100%;
@@ -169,3 +170,26 @@ height:200%;}
 .list a{color:greenyellow;}
 body{background-color: rgba(210, 235, 255, 0.973);}
 .bb{background-color:  rgba(110, 135, 155,1);color:white;  }
+#title{width:100%;}
+.lblue{color:lightblue;}
+.red{color:orangered;}
+.center{text-align :center; margin:auto;
+}
+.err{padding-bottom: 2rem;padding-top:1rem;margin-bottom:2rem;border-bottom: 2px solid lightgreen;}
+
+.loader {
+  margin-bottom: 2rem;
+  margin-top:2rem;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

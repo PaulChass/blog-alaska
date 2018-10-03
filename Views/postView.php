@@ -5,11 +5,15 @@ ob_start();?>
 <div class="blog-post">
     <p  class="blog-post-meta ">    
    
-    <p class="blog-post-meta"> le
-    <?=$post['updateDate_fr']?></p>
-    <?php if(isset($_SESSION['userType']) && $_SESSION['userType']=='admin'){ ?>
-        <a href="index.php?action=changePost&id=<?=$post['id']?>"> (modifier)</a><?php 
+    <div class="blog-post-meta row"> 
+    <p class=col-10> le 
+        <?=$post['createDate_fr']?> </p>
+        <?php if(isset($_SESSION['userType']) && $_SESSION['userType']=='admin'){ ?>
+            <a class="col-1"href="index.php?action=changePost&id=<?=$post['id']?>"> <i class="far fa-edit"></i></a>
+            <a href="index.php?action=deletePost&id=<?=$post['id']?>"> <i class="far red fa-trash-alt"></i> </a>
+        <?php 
         } ?>
+    </div>
     <p class="blog-post-meta"><?=($post['content'])?></p>
 </div>
 
@@ -42,14 +46,14 @@ ob_start();?>
                 <?php if(isset($_SESSION['userType']))
             {?>
                 <form  action="index.php?action=signalComment&amp;id=<?=$comment['id']?>" method="post">
-                <button class="fas fa-exclamation"></button></form>
+                <button class="fas red fa-exclamation"></button></form>
 
                 <form  action="index.php?action=likeComment&amp;id=<?=$comment['id']?>" method="post">
-                <button class="fas fa-thumbs-up"></button></form>
+                <button class="btn lblue fas fa-thumbs-up"></button></form>
                 <?php if($_SESSION['userType']=='admin')
                 {?>
                 <form  action="index.php?action=deleteComment&amp;id=<?=$comment['id']?>" method="post">
-                <button> Supprimer</button></form><?php
+                <button class="btn fas fa-trash-alt"></button></form><?php
                 }
                 }?>
         </div>

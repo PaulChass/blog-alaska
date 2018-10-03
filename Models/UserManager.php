@@ -3,7 +3,15 @@ namespace Blog\Model;
 
 class UserManager
 {
-
+/**
+ * Ajoute un nouvel compte utilisateur dans la base de données.
+ * 
+ * @param <String> $mail addresse mail du nouvel utilisateur
+ * @param <String> $password mot de passe du nouvel utilisateur
+ * @param <String> $username Pseudonyme du nouvel utilisateur 
+ * 
+ * @return <bool> TRUE : Le compte a été crée / FALSE : Une erreur a eu lieu
+ */
     public function addUser($mail, $password, $username)
     {
         $db = $this->dbConnect();
@@ -18,6 +26,14 @@ class UserManager
         return $affectedLines;
     }
 
+/**
+ * Verifie les identifiants de connexion de l'utilisateur .
+ *
+ * @param <String> $mail Addresse mail saisie par l'utilisateur 
+ * @param <String> $password Mot de passe saisi par l'utilisateur
+ * 
+ * @return <bool> TRUE : L'authentification est réussie / FALSE : Une erreur a eu lieu
+ */
     public function signIn($mail,$password)
     {
         $db = $this->dbConnect();
@@ -35,6 +51,13 @@ class UserManager
         return $signIn;
     }
 
+/**
+ * Renvoi les informations d'un utilisateur
+ *
+ * @param <String> $mail addresse email de l'utilisateur
+ * 
+ * @return <array> contenant le nom d'utilisateur,son identifiant et sont type  
+ */
     public function getUser($mail)
     {
         $db = $this->dbConnect();
@@ -45,6 +68,13 @@ class UserManager
         return $user;
     }
 
+/**
+ * Verifie si l'email n'est pas déja utilisé
+ * 
+ * @param <String> $mail addresse mail saisi par l'utilisateur
+ * 
+ * @return <bool> TRUE : L'addresse email n'est pas déja utilisé / FALSE : Addresse email déja utilisé
+ */
     public function checkEmail($mail)
     {
         $db = $this -> dbConnect();
@@ -61,7 +91,11 @@ class UserManager
         return $checkEmail;
     }
 
-
+/**
+ * Connecte à la base de donnnées
+ * 
+ * @return <PDO> autorisation de connexion a la base de donné 
+ */
     private function dbConnect()
     {
         $db = new \PDO('mysql:host=localhost;dbname=p3;charset=utf8', 'root', '');

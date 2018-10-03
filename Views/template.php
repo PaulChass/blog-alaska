@@ -18,12 +18,12 @@
     <link href="Public/css/blog.css" rel="stylesheet">
   </head>
   <body>
-
+ 
     <div class="container">
       <header class="blog-header py-3">
         <div class="row flex-nowrap justify-content-between align-items-center">
           <div class="col-4 pt-1">
-            <a class="text-muted" href="index.php?action=signUp"><?php if(!isset($_SESSION['userType'])){
+            <a class="text-muted" href="index.php?action=signUp"><?php if(isUser()==FALSE){
               echo 'S\'inscrire';
             }
             else {echo 'Utilisateur :  '.$_SESSION['username'];}
@@ -85,7 +85,7 @@
                 ?>
                 <li><a href="index.php?action=post&id=<?= $post['id'];?>">Episode <?php echo $i;$i++;?></a>   <?= htmlspecialchars($post['title'])?> </li>
              <?php }$posts->closeCursor();?>
-             <?php if(isset($_SESSION['userType'])  &&  $_SESSION['userType']=='admin')
+             <?php if(isAdmin()== TRUE)
                 {?>
                 <li><a href="index.php?action=addPost">Nouvel Episode</a></li><?php } ?>
             </ol>
@@ -101,7 +101,7 @@
     <footer class="blog-footer">
       
       <p>
-      <?php if(isset($_SESSION['userType'])  &&  $_SESSION['userType']=='admin')
+      <?php if(isAdmin()== TRUE)
                 {?>
         <a href="index.php?action=dashboard" class="p-4"> Dashboard </a><?php
         } ?>

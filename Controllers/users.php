@@ -23,6 +23,7 @@ function signIn($mail= null, $password= null)
             $countComments = $commentManager -> countComments();
             $countLikedComments = $commentManager -> countLikedComments();
             $countSignaledComments = $commentManager -> countSignaledComments();
+            $posts = $postManager->getPosts();
             if($countComments === FALSE )
             {
                 throw new Exception ("Le nombre de commentaire n/'as pas été récupéré");
@@ -41,15 +42,17 @@ function signIn($mail= null, $password= null)
 
 
             else {
+                $e ="Authentification réussie!"; 
                 $_SESSION['mail'] = $mail;
                 $_SESSION['userType'] = $user['userType'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['userId'] =$user['id'];
                 if ($user['userType']=="admin") {
-                    require('Views/Dashboard.php');}
+                $action='dashboard';}
                 else{ 
-                    header('Location: index.php?action=listPosts');
-                }    
+                    $action='listPosts';
+                }  
+            showError($e,$action);      
             die;}
         }
     }
@@ -57,6 +60,7 @@ function signIn($mail= null, $password= null)
     require('Views/SignIn.php');
     die;
     }
+    die;
 }
 function dashboard(){
     $postManager = new Postmanager();
@@ -65,6 +69,7 @@ function dashboard(){
     $countComments = $commentManager -> countComments();
     $countLikedComments = $commentManager -> countLikedComments();
     $countSignaledComments = $commentManager -> countSignaledComments();
+    $posts = $postManager->getPosts();
     if($countComments === FALSE )
     {
         throw new Exception ("Le nombre de commentaire n/'as pas été récupéré");
@@ -111,10 +116,14 @@ function signUp($mail= null, $password= null, $username= null)
             require('Views/SignUp.php');
             die;
             }
-        }    
-            header('Location: index.php?action=listPosts');
+        } 
+        $e="Vous inscription a bien été enregistrer !";
+        showError($e);
+        die;
+        
     }
     require('Views/SignUp.php');
+    die;
 }
 
 

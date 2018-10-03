@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title> <?= $title ?></title>
+    <title> Billet Simple pour l'Alaska </title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
@@ -46,7 +46,8 @@
      <main role="main" class="container">
         
           <h3 class="pb-3 font-italic center border-bottom">
-            <?=  $blogTitle ?>
+         
+            <?=  $blogTitle; ?>
           </h3>
 
           <div class="blog-post pb-10">
@@ -59,12 +60,16 @@
 
     <footer class="blog-footer">
       
-    <div class="row flex-nowrap justify-content-around align-items-center">
-    <a class="p-4 justify-content-" href="#">Dashboard</a>
-    <a href="index.php" class="p-4 justify-content-between">  Page d'accueil</a>
-    </div> 
+      <p>
+      <?php if(isAdmin() ==TRUE)
+                {?>
+        <a href="index.php?action=dashboard" class="p-4"> Dashboard </a><?php
+        } ?>
+        <a href="#" class="p-4"> Revenir au haut de page</a>
+        <a href="index.php" class="p-4">  Page d'accueil</a>
+      </p>
     </footer>
-
+   
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
