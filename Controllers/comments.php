@@ -46,8 +46,7 @@ function likeCommment($commentId,$userId)
     $likedComment = $commentManager -> likeComment($commentId,$userId);
        if ($likedComment === False) {
         throw new Exception('Impossible de liker le commentaire !');
-    }
-    else {
+    } else {
       $postId= $commentManager -> getId($commentId);
       header('Location: index.php?action=post&id='.$postId);
     }	
@@ -73,8 +72,7 @@ function deleteComment($id)
     $deletedComment = $commentManager -> deleteComment($id);
        if ($deletedComment === False) {
         throw new Exception('Impossible de supprimer le commentaire !');
-    }
-    else{
+    } else {
     header('Location: index.php?action=post&id='.$postId);
     }
 }
