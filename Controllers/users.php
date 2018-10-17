@@ -14,8 +14,7 @@ function signIn($mail= null, $password= null)
             $e ='Utilisateur ou mot de passe incorrect';
             require('Views/SignIn.php');
             die;
-        }
-        else{
+        } else {
             $postManager = new Postmanager();
             $commentManager = new Commentmanager();
             $user = $userManager -> getUser($mail);
@@ -26,10 +25,8 @@ function signIn($mail= null, $password= null)
             $posts = $postManager->getPosts();
             if($countComments === FALSE )
             {
-                throw new Exception ("Le nombre de commentaire n/'as pas été récupéré");
-            }
-            else if ($countLikedComments === FALSE)
-            {
+                $e ="Le nombre de commentaire n/'as pas été récupéré";
+            } else if ($countLikedComments === FALSE) {
                 throw new Exception ("Le nombre de commentaire liké n/'as pas été récupéré");
             }
             else if ($countSignaledComments === FALSE)
@@ -48,21 +45,23 @@ function signIn($mail= null, $password= null)
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['userId'] =$user['id'];
                 if ($user['userType']=="admin") {
-                $action='dashboard';}
-                else{ 
+                    $action='dashboard';
+                }  else  { 
                     $action='listPosts';
                 }  
             showError($e,$action);      
-            die;}
+            die;
+            }
         }
     }
     else{
-    require('Views/SignIn.php');
-    die;
+        require('Views/SignIn.php');
+        die;
     }
     die;
 }
-function dashboard(){
+function dashboard()
+{
     $postManager = new Postmanager();
     $commentManager = new Commentmanager();
     $countPosts = $postManager -> countPosts();
@@ -70,24 +69,18 @@ function dashboard(){
     $countLikedComments = $commentManager -> countLikedComments();
     $countSignaledComments = $commentManager -> countSignaledComments();
     $posts = $postManager->getPosts();
-    if($countComments === FALSE )
-    {
+    if($countComments === FALSE ) {
         throw new Exception ("Le nombre de commentaire n/'as pas été récupéré");
-    }
-    else if ($countLikedComments === FALSE)
-    {
+    } elseif ($countLikedComments === FALSE) {
         throw new Exception ("Le nombre de commentaire liké n/'as pas été récupéré");
-    }
-    else if ($countSignaledComments === FALSE)
-    {
+    } elseif ($countSignaledComments === FALSE) {
         throw new Exception ("Le nombre de commentaire n/'as pas été récupéré");
-    }
-    else if ($countPosts === FALSE){
+    } elseif ($countPosts === FALSE){
         throw new Exception ("Le nombre de post n'as pas été récupéré");
+    } else {
+            require('Views/dashboard.php');
     }
-    else {
-            require('Views/Dashboard.php');}
-    }
+}
 
 function signOut()
 {
@@ -109,8 +102,7 @@ function signUp($mail= null, $password= null, $username= null)
             $e='Addresse email déja utilisé!';
             require('Views/SignUp.php');
             die;
-        }
-        else {
+        } else {
             $affectedLines = $userManager->addUser($mail, $password, $username);
             if($affectedLines === FALSE){
             $e='Les mots de passe ne correspondent pas. Veuillez réessayer';

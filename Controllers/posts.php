@@ -8,7 +8,7 @@ use Blog\Model\PostManager;
 use Blog\Model\CommentManager;
 use Blog\Model\UserManager;
 
-function post($id)
+function post($id) 
 {
     $postManager = new Postmanager();
     $commentManager = new CommentManager();
@@ -33,9 +33,11 @@ function listPosts()
 
 function addPost($title = null, $content = null)
 {
-    if(isAdmin()==TRUE) {
+    if(!isAdmin()) {
+        showError($e="L'accès de cette page est réservé à l'administrateur....     Veuillez vous connecter. ",$action="signIn");
+        die;
+    }
     if (isset($_POST['title']) && isset($_POST['content'])) {
-
         $postManager = new Postmanager();
         $affectedLines = $postManager->insertPost($title, $content);
         if ($affectedLines === False) {
@@ -46,52 +48,60 @@ function addPost($title = null, $content = null)
         die;
     }
     require('Views/newPost.php');
-    } else showError($e="L'accès de cette page est réservé à l'administrateur....     Veuillez vous connecter. ",$action="signIn");
-    die;
 }
 
 
 function changePost($postId,$title = null, $content=null )
 {   
-    if(isAdmin()==TRUE) {
-        $postManager = new Postmanager();
-        if (isset($_POST['title']) && isset($_POST['content'])) {
-            $date = $postManager->getCreateDate($postId);
-            $affectedLines = $postManager->updatePost($title, $content,$date);
-            $id= $postManager -> getPostId($date);
-            $commentManager = new CommentManager();
-            $affectedcomments = $commentManager -> changePostId($postId,$id);
-            if ($affectedcomments === False) {
-                $e ='Erreur lors de la modification du post';
-            }    else    {
-            $e = "L'épisode a bien été modifier";
-            }
-            deletePost($_GET['id'],$e);
+    if(!isAdmin()) {
+        showError($e="L'accès de cette page est réservé à l'administrateur....     Veuillez vous connecter. ",$action="signIn");
+    }
+
+    $postManager = new Postmanager();
+
+    if (isset($_POST['title']) && isset($_POST['content'])) {
+        $date = $postManager->getCreateDate($postId);
+        $affectedLines = $postManager->updatePost($title, $content,$date);
+        $id= $postManager -> getPostId($date);
+        $commentManager = new CommentManager();
+        $affectedcomments = $commentManager -> changePostId($postId,$id);
+        
+        if ($affectedcomments === False) {
+            $e ='Erreur lors de la modification du post';
+        } else {
+            $e = "L'épisode a bien été modifié" ;
         }
-        $post = $postManager-> getPost($_GET['id']);
-        require('Views/changePost.php');
-    } else showError($e="L'accès de cette page est réservé à l'administrateur....     Veuillez vous connecter. ",$action="signIn");
+
+        deletePost($_GET['id'],$e);
+    }
+
+    $post = $postManager-> getPost($_GET['id']);
+    require('Views/changePost.php');
 }
 
 
 function deletePost($id,$e=null)
 {
-    if(isAdmin()==TRUE) {
+    if(!isAdmin()) { 
+        showError($e="L'accès de cette page est réservé à l'administrateur....     Veuillez vous connecter. ",$action="signIn");
+    }
+
     $postManager = new Postmanager();
     $commentManager = new Commentmanager();
     $deletedComments = $commentManager -> deletePostComments($id);
     $deletedpost = $postManager -> deletePost($id);
     if ($deletedpost === False) {
-        $e='Le post n\'a pas été supprimer ! ';
+        $e='Le post n\'a pas été supprimé ! ';
         $action ='post&id='.$id;
         showError($e,$action);
-    }    else    {
+    } else {
+
     if(!isset($e)) {
         $e = "Le post a bien été supprimé";
+        } showError($e);    
     }
-    showError($e);    }
+    
     die;
-    } else showError($e="L'accès de cette page est réservé à l'administrateur....     Veuillez vous connecter. ",$action="signIn");
 }
 
 

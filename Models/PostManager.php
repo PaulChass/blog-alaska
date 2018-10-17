@@ -15,12 +15,12 @@ class PostManager
         return $req;
     }
 
-/**
- * Recupère les informations d'un post en particulier
- * @param <int> $postID Id du post que l'on veut récupérer
- * 
- * @return <array> contient l'id le titre le contenu et la date d'un seul post
- */
+    /**
+     * Recupère les informations d'un post en particulier
+     * @param <int> $postID Id du post que l'on veut récupérer
+     * 
+     * @return <array> contient l'id le titre le contenu et la date d'un seul post
+     */
     public function getPost($postId)
     {
         $db = $this->dbConnect();
@@ -30,12 +30,12 @@ class PostManager
         return $post;
     }
 
-/**
- * Supprime un post publié
- * @param <int> $id id du post à supprimer
- * 
- * @return <bool> TRUE : Le post a été supprimé / FALSE : Une erreur à eu lieu     
- */
+    /**
+     * Supprime un post publié
+     * @param <int> $id id du post à supprimer
+     * 
+     * @return <bool> TRUE : Le post a été supprimé / FALSE : Une erreur à eu lieu     
+     */
     public function deletePost($id)
     {
         $db = $this->dbConnect();
@@ -44,22 +44,22 @@ class PostManager
         return $deletedLines;    
     }
 
-/**
- * Publie un nouveau post 
- * @param <String> $title  Titre du nouveau post
- * @param <String> $content Contenu de nouveau post
- * 
- * @return <bool> TRUE : Le post est ajouté / FALSE : Une erreur a eu lieu
- */
+    /**
+     * Publie un nouveau post 
+     * @param <String> $title  Titre du nouveau post
+     * @param <String> $content Contenu de nouveau post
+     * 
+     * @return <bool> TRUE : Le post est ajouté / FALSE : Une erreur a eu lieu
+     */
     public function insertPost($title,$content)
     {
-    $db = $this->dbConnect();
-    $posts = $db->prepare('INSERT INTO post(title, content, createDate) VALUES(:title, :content, now())');
-    $affectedLines=$posts->execute(array(
-    'title' => $title,
-    'content' => $content
-    ));
-    return $affectedLines;
+        $db = $this->dbConnect();
+        $posts = $db->prepare('INSERT INTO post(title, content, createDate) VALUES(:title, :content, now())');
+        $affectedLines=$posts->execute(array(
+            'title' => $title,
+            'content' => $content
+        ));
+        return $affectedLines;
     }
 
 /**
@@ -136,7 +136,4 @@ class PostManager
         $db = new \PDO('mysql:host=localhost;dbname=p3;charset=utf8', 'root', '');
         return $db;
     }
-    
-
-   
 }
